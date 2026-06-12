@@ -1,12 +1,14 @@
--- WPoets Full Stack Test Database
+-- WPoets Full Stack Test – Database
+-- Categories match the design: Learning, Technology, Communication
+
 CREATE DATABASE IF NOT EXISTS wpoets_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE wpoets_db;
 
 -- Categories (Tabs)
 CREATE TABLE IF NOT EXISTS categories (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    slug VARCHAR(100) NOT NULL UNIQUE,
+    id         INT AUTO_INCREMENT PRIMARY KEY,
+    name       VARCHAR(100) NOT NULL,
+    slug       VARCHAR(100) NOT NULL UNIQUE,
     sort_order INT DEFAULT 0,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -14,39 +16,71 @@ CREATE TABLE IF NOT EXISTS categories (
 
 -- Slides
 CREATE TABLE IF NOT EXISTS slides (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    category_id INT NOT NULL,
-    title VARCHAR(200) NOT NULL,
-    description TEXT,
-    slide_image VARCHAR(255),
+    id              INT AUTO_INCREMENT PRIMARY KEY,
+    category_id     INT NOT NULL,
+    title           VARCHAR(200) NOT NULL,
+    eyebrow         VARCHAR(200) DEFAULT NULL,
+    description     TEXT,
+    slide_image     VARCHAR(255),
     thumbnail_image VARCHAR(255),
-    sort_order INT DEFAULT 0,
-    is_active TINYINT(1) DEFAULT 1,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    sort_order      INT DEFAULT 0,
+    is_active       TINYINT(1) DEFAULT 1,
+    created_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE CASCADE
 );
 
--- Seed data
+-- Seed: 3 categories matching the design
 INSERT INTO categories (name, slug, sort_order) VALUES
-('Architecture', 'architecture', 1),
-('Interior Design', 'interior-design', 2),
-('Landscape', 'landscape', 3),
-('Urban Planning', 'urban-planning', 4);
+('Learning',      'learning',      1),
+('Technology',    'technology',    2),
+('Communication', 'communication', 3);
 
-INSERT INTO slides (category_id, title, description, slide_image, thumbnail_image, sort_order) VALUES
-(1, 'Modern Villa', 'A stunning contemporary villa with clean lines and open spaces.', 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=900&h=500&fit=crop', 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=600&h=600&fit=crop', 1),
-(1, 'Glass Tower', 'Cutting-edge glass skyscraper reflecting the city skyline.', 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=900&h=500&fit=crop', 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&h=600&fit=crop', 2),
-(1, 'Wooden Retreat', 'Rustic wooden cabin nestled in a forested mountain setting.', 'https://images.unsplash.com/photo-1542621334-a254cf47733d?w=900&h=500&fit=crop', 'https://images.unsplash.com/photo-1542621334-a254cf47733d?w=600&h=600&fit=crop', 3),
+-- Seed: 3 slides per category
+-- NOTE: Update slide_image and thumbnail_image paths to match your server setup.
+--       The image files are in files/images/ folder.
+INSERT INTO slides (category_id, title, eyebrow, description, slide_image, thumbnail_image, sort_order) VALUES
+(1, 'Usability enhancement and Training for Transaction Portal for Customers',
+    'Digital Learning Infrastructure',
+    'Comprehensive learning solutions tailored for enterprise growth.',
+    'files/images/DL-Learning-1.jpg', 'files/images/DL-Learning-1.jpg', 1),
 
-(2, 'Minimalist Living', 'Clean, minimalist living room with warm natural tones.', 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=900&h=500&fit=crop', 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&h=600&fit=crop', 1),
-(2, 'Industrial Kitchen', 'Bold industrial kitchen with exposed brick and metal accents.', 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=900&h=500&fit=crop', 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&h=600&fit=crop', 2),
-(2, 'Cozy Bedroom', 'Warm and inviting bedroom with layered textures and soft lighting.', 'https://images.unsplash.com/photo-1505693314120-0d443867891c?w=900&h=500&fit=crop', 'https://images.unsplash.com/photo-1505693314120-0d443867891c?w=600&h=600&fit=crop', 3),
+(1, 'Advanced E-Learning Platform for Corporate Training',
+    'Digital Learning Infrastructure',
+    'Scalable training solutions for modern enterprises.',
+    'files/images/DL-Learning-1.jpg', 'files/images/DL-Learning-1.jpg', 2),
 
-(3, 'Zen Garden', 'A serene Japanese-inspired garden with raked gravel and stone lanterns.', 'https://images.unsplash.com/photo-1585320806297-9794b3e4aaae?w=900&h=500&fit=crop', 'https://images.unsplash.com/photo-1585320806297-9794b3e4aaae?w=600&h=600&fit=crop', 1),
-(3, 'Rooftop Terrace', 'Lush rooftop garden with city panorama views.', 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=900&h=500&fit=crop', 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&h=600&fit=crop', 2),
-(3, 'Wildflower Meadow', 'An organic wildflower landscape blending with the natural terrain.', 'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=900&h=500&fit=crop', 'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=600&h=600&fit=crop', 3),
+(1, 'Blended Learning Strategy for Remote Teams',
+    'Digital Learning Infrastructure',
+    'Connecting teams through digital-first learning experiences.',
+    'files/images/DL-Learning-1.jpg', 'files/images/DL-Learning-1.jpg', 3),
 
-(4, 'City Hub', 'A vibrant mixed-use urban hub with pedestrian-first design.', 'https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=900&h=500&fit=crop', 'https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=600&h=600&fit=crop', 1),
-(4, 'Green Corridor', 'Tree-lined urban corridor reconnecting neighborhoods.', 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=900&h=500&fit=crop', 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=600&h=600&fit=crop', 2),
-(4, 'Waterfront Plaza', 'Revitalized waterfront plaza integrating culture and commerce.', 'https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=900&h=500&fit=crop', 'https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=600&h=600&fit=crop', 3);
+(2, 'Enterprise Technology Transformation Programme',
+    'Technology Solutions',
+    'Modernising infrastructure for scalable digital growth.',
+    'files/images/DL-Technology.jpg', 'files/images/DL-Technology.jpg', 1),
+
+(2, 'Cloud Migration and DevOps Enablement',
+    'Technology Solutions',
+    'Seamless cloud transition with zero downtime.',
+    'files/images/DL-Technology.jpg', 'files/images/DL-Technology.jpg', 2),
+
+(2, 'AI Integration for Intelligent Business Automation',
+    'Technology Solutions',
+    'Leveraging machine learning to automate critical processes.',
+    'files/images/DL-Technology.jpg', 'files/images/DL-Technology.jpg', 3),
+
+(3, 'Omnichannel Communication Framework for Enterprises',
+    'Communication Strategy',
+    'Unified communication strategies across all digital touchpoints.',
+    'files/images/DL-Communication.jpg', 'files/images/DL-Communication.jpg', 1),
+
+(3, 'Internal Communication Redesign for Global Teams',
+    'Communication Strategy',
+    'Breaking silos with integrated communication platforms.',
+    'files/images/DL-Communication.jpg', 'files/images/DL-Communication.jpg', 2),
+
+(3, 'Customer Engagement and Feedback Loop Systems',
+    'Communication Strategy',
+    'Real-time feedback channels that improve customer satisfaction.',
+    'files/images/DL-Communication.jpg', 'files/images/DL-Communication.jpg', 3);
