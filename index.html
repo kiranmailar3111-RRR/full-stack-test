@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WPoets – DelphianLogic in Action</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap 5 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     HEADER
+     ══════════════════════════════════════ -->
+<header class="site-header">
+  <a href="#" class="logo">WPoets</a>
+  <nav class="header-nav">
+    <a href="#showcase">Work</a>
+    <a href="#admin">Admin</a>
+    <a href="#">Contact</a>
+  </nav>
+</header>
+
+<!-- ══════════════════════════════════════
+     INTRO
+     ══════════════════════════════════════ -->
+<div class="section-intro">
+  <h1>DelphianLogic in Action</h1>
+  <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo</p>
+</div>
+
+<!-- ══════════════════════════════════════
+     SHOWCASE – Desktop (3 columns)
+     ══════════════════════════════════════ -->
+<section id="showcase" class="showcase d-none d-md-grid" role="region" aria-label="Project showcase">
+
+  <!-- Col 1 – Tabs -->
+  <div class="col-tabs" id="colTabs" role="tablist" aria-label="Project categories">
+    <!-- Rendered by JS -->
+  </div>
+
+  <!-- Col 2 – Slider -->
+  <div class="col-slider" id="colSlider" role="region" aria-label="Project slides">
+    <div class="slider-track" id="sliderTrack">
+      <!-- Rendered by JS -->
+    </div>
+
+    <div class="slider-dots" id="sliderDots"></div>
+
+    <div class="slider-controls">
+      <button class="ctrl-btn" id="btnPrev" aria-label="Previous slide">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <polyline points="15 18 9 12 15 6"/>
+        </svg>
+      </button>
+      <span class="slide-counter" id="slideCounter">01 / 03</span>
+      <button class="ctrl-btn" id="btnNext" aria-label="Next slide">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <polyline points="9 18 15 12 9 6"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Col 3 – Feature image (1:1) -->
+  <div class="col-image" role="img" aria-label="Featured project image">
+    <div class="col-image-inner">
+      <img id="featureImg" class="feature-img" src="" alt="" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SHOWCASE – Mobile (accordion)
+     ══════════════════════════════════════ -->
+<section id="showcaseMobile" class="d-md-none" aria-label="Project categories">
+  <div id="mobileAccordion">
+    <!-- Rendered by JS -->
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     ADMIN SECTION
+     ══════════════════════════════════════ -->
+<section id="admin" class="admin-section">
+  <div class="admin-intro">
+    <span class="section-eyebrow">Content Management</span>
+    <h2>CRUD Admin</h2>
+    <p>Manage categories and slides. The showcase above updates automatically. When running without a PHP/MySQL backend the UI uses demo data.</p>
+  </div>
+
+  <!-- Admin tab bar -->
+  <div class="admin-bar">
+    <div class="admin-bar-left">
+      <button class="btn btn-outline active-tab" data-panel="panelCats" id="tabBtnCats">Categories</button>
+      <button class="btn btn-outline" data-panel="panelSlides" id="tabBtnSlides">Slides</button>
+    </div>
+    <div class="admin-bar-right">
+      <button class="btn btn-primary" id="btnAddCat">+ Category</button>
+      <button class="btn btn-primary" id="btnAddSlide">+ Slide</button>
+    </div>
+  </div>
+
+  <div class="admin-content">
+
+    <!-- Categories panel -->
+    <div id="panelCats" class="admin-panel active">
+      <table class="data-table">
+        <thead>
+          <tr><th>ID</th><th>Name</th><th>Slug</th><th>Sort</th><th>Actions</th></tr>
+        </thead>
+        <tbody id="catTableBody">
+          <tr><td colspan="5" style="color:var(--clr-muted);padding:20px">Loading…</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Slides panel -->
+    <div id="panelSlides" class="admin-panel">
+      <table class="data-table">
+        <thead>
+          <tr><th>ID</th><th>Preview</th><th>Title</th><th>Category</th><th>Actions</th></tr>
+        </thead>
+        <tbody id="slideTableBody">
+          <tr><td colspan="5" style="color:var(--clr-muted);padding:20px">Click "Slides" tab to load</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     CRUD MODAL
+     ══════════════════════════════════════ -->
+<div class="modal-backdrop" id="crudModal" role="dialog" aria-modal="true">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="modalTitle">Modal</h2>
+      <button class="modal-close" id="modalClose" aria-label="Close">×</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" id="modalCancel">Cancel</button>
+      <button class="btn btn-primary" id="modalSave">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- ══════════════════════════════════════
+     FOOTER
+     ══════════════════════════════════════ -->
+<footer class="site-footer">
+  <span class="logo-text">WPoets</span>
+  <span>Full Stack Test · PHP · MySQL · jQuery · Bootstrap</span>
+</footer>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="js/main.js"></script>
+
+</body>
+</html>
