@@ -31,11 +31,10 @@ My approach follows a structured funnel:
 
 ## 3. Please describe yourself using JSON
 
-```json
 {
   "name": "Ravikiran",
   "role": "Full Stack Developer",
-  "experience_years": 2.4,
+  "experience_years": 2,
   "location": "Bengaluru, India",
   "stack": {
     "backend":  ["PHP", "Laravel", "Livewire", "WordPress"],
@@ -54,7 +53,16 @@ My approach follows a structured funnel:
     "AI-powered chat platform (Groq + SSE)",
     "BotPilot — chatbot SaaS"
   ],
+  "projects": {
+    "BillStack": {
+      "description": "Invoice & billing SaaS built with React.js and Laravel REST API backend",
+      "type": "SaaS"
+    }
+  },
   "goal": "Ship products that are fast, accessible, and maintainable",
-  "available_for": "Full-time opportunity"
+  "available_for": "Full-time opportunity",
+  "links": {
+    "linkedin": "https://www.linkedin.com/in/ravi-kiran-1a7010247/",
+    "github": "https://github.com/kiranmailar3111-RRR/"
+  }
 }
-```
